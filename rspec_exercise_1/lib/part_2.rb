@@ -41,26 +41,6 @@ end
 # should return a new string where every letter of the message is shifted n positions in the alphabet
 # should not modify non-alphabetic characters
 
-# def caesar_cipher(str, num)
-#    cipher = ''
-#    num = num % 26 if num > 26
-
-#    str.each_codepoint do
-#       |codepoint|
-         
-#       if codepoint < 123 && codepoint > 96
-#          codepoint += num
-#          if codepoint > 122
-#             codepoint -= 26
-#          end
-#       end
-
-#       cipher << codepoint.chr
-#    end
-
-#    cipher
-# end
-
 def caesar_cipher(str, num)
    alphabet = ('a'..'z').to_a
    cipher = ''
