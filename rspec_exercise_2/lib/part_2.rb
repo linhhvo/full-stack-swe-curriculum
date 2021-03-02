@@ -57,11 +57,5 @@ def palindrome_substrings(str)
    result = []
 
    all_substrings = substrings(str)
-   all_substrings.each do
-      |substring|
-
-      result << substring if substring.length > 1 && palindrome?(substring)
-   end
-
-   result
+   all_substrings.select {|substring| substring.length > 1 && palindrome?(substring)}
 end

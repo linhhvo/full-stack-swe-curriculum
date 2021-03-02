@@ -27,7 +27,11 @@ end
 # should not mutate the two input hashes
 
 def merge(hash_1, hash_2)
-   hash_1.merge(hash_2)
+   # hash_1.merge(hash_2)
+   hash = {}
+   hash_1.each {|key, value| hash[key] = value}
+   hash_2.each {|key, value| hash[key] = value}
+   hash
 end
 
 
@@ -58,13 +62,10 @@ end
 #   should return false
 
 def power_of_two? (num)
-   if num == 1
-      return true
-   elsif num == 0
-      return false
-   elsif num % 2 == 0
-      power_of_two? (num / 2)
-   else
-      return false
+   product = 1
+
+   while product < num
+      product *= 2
    end
+   product == num
 end
