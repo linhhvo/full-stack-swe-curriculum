@@ -19,11 +19,9 @@ def largest_prime_factor(num)
 end
 
 def is_prime? (num)
-    (2...num).each do
-        |divisor|
-        return false if num % divisor == 0
-    end
-    true
+    return false if num < 2
+
+    (2...num).none? {|divisor| num % divisor == 0 }
 end
 
 
@@ -40,9 +38,8 @@ def unique_chars?(str)
         |char|
         if char_arr.include? (char)
             return false
-        else
-            char_arr << char
         end
+        char_arr << char
     end
     true
 end
@@ -53,26 +50,27 @@ end
 #   should return an hash where keys are the elements that were repeated in the array and values are the indices where that element appears
 
 def dupe_indices(array)
-    dupe_hash = {}
-    array.each_with_index do
-        |el, i|
-        if dupe_hash.include? (el)
-            dupe_hash[el] << i
-        else
-            dupe_hash[el] = [i]
-        end
-    end
-
-    dupe_hash.select! {|key, value| value.length > 1}
+    dupe_hash = Hash.new {|hash, key| hash[key] = [] }
+    array.each_with_index {|el, i| dupe_hash[el] << i}
+    dupe_hash.select {|key, value| value.length > 1}
 end
 
+
+# ana_array
+#   should accept two arrays as args
+#   should not use Array#sort
+#   when the arrays contain the same elements, in any order
+#     should return true
+#   when the arrays do not contain the same elements
+#     should return false
 
 def ana_array(arr_1, arr_2)
     return false if arr_1.length != arr_2.length
 
-    
-end
+    count_hash_1 = Hash.new(0)
+    count_hash_2 = Hash.new(0)
+    arr_1.each {|el| count_hash_1[el] += 1}
+    arr_2.each {|el| count_hash_2[el] += 1}
 
-def custom_sort(arr)
-    ()
+    count_hash_1 == count_hash_2
 end
