@@ -6,7 +6,7 @@ require "byebug"
 # should use Array#select
 
 def select_even_nums(arr)
-    arr.select{|el| el  % 2 == 0}
+    arr.select(&:even?)
 end
 
 
@@ -26,12 +26,7 @@ end
 # should use Array#count
 
 def count_positive_subarrays(arr)
-    arr.map! do
-        |subarr|
-        subarr.sum
-    end
-
-    arr.count {|sum| sum > 0}
+    arr.count {|subarr| subarr.sum > 0}
 end
 
 
@@ -42,16 +37,14 @@ end
 def aba_translate(word)
     vowels = "aeuio"
     new_word = ''
-    starting = 0
     word.each_char.with_index do
         |char, i|
         if vowels.include?(char)
             # debugger
-            new_word << word[starting..i] << 'b' + char
+            new_word << char + 'b' + char
         else
-            new_word << word[starting..i]
+            new_word << char
         end
-        starting = i+1
     end
 
     new_word
