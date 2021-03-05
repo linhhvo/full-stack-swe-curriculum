@@ -11,9 +11,7 @@ class Array
     #     should return nil
 
     def span
-        if self.length > 0
-            self.max - self.min
-        end
+        self.max - self.min if !self.empty?
     end
 
     # #average
@@ -23,9 +21,7 @@ class Array
     #     should return nil
 
     def average
-        if self.length > 0
-            self.sum.fdiv(self.length) 
-        end  
+        self.sum.fdiv(self.length) if !self.empty?
     end
 
     # #median
@@ -40,7 +36,7 @@ class Array
         sorted = self.sort
         mid = self.length / 2
 
-        return nil if self.length == 0
+        return nil if self.empty?
 
         if self.length.even?
             [sorted[mid-1], sorted[mid]].average
