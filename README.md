@@ -1,6 +1,6 @@
 # Software Engineering Foundations
 
-<a href="https://open.appacademy.io/learn/full-stack-online/software-engineering-foundations/">App Academy Open
+<a target="_blank" href="https://open.appacademy.io/learn/full-stack-online/software-engineering-foundations/">App Academy Open
     Curriculum</a>
 
 <p>This is my solutions for the practice problems throughout the course.</p>
