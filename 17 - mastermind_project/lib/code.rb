@@ -19,6 +19,25 @@ class Code
         chars.all? {|char| POSSIBLE_PEGS.has_key?(char.upcase)}
     end
 
+    # ::random
+    # should accept a length (number) as an arg
+    # should call Code::new with an array of the given length containing random pegs
+    # should return a Code instance with a randomized pegs array of the given length
+
+    def self.random(length)
+        chars = Array.new(length) {|el| el = POSSIBLE_PEGS.keys.sample}
+        Code.new(chars)
+    end
+
+    # ::from_string
+    # should accept a string representing pegs as an arg
+    # should call Code::new with an array of chars
+    # should return a Code instance with pegs colors given by the chars of the string
+
+    def self.from_string(pegs)
+        Code.new(pegs.split(''))
+    end
+
     # #initialize
     # should accept an array of chars representing pegs as an arg
     # should call Code::valid_pegs?
@@ -32,27 +51,8 @@ class Code
         if Code.valid_pegs?(chars)
             @pegs = chars.map(&:upcase)
         else
-            raise "This is not valid pegs."
+            raise "This does not contain valid pegs."
         end
-    end
-
-    # ::random
-    # should accept a length (number) as an arg
-    # should call Code::new with an array of the given length containing random pegs
-    # should return a Code instance with a randomized pegs array of the given length
-
-    def self.random(length)
-        chars = Array.new(length, POSSIBLE_PEGS.keys.sample)
-        Code.new(chars)
-    end
-
-    # ::from_string
-    # should accept a string representing pegs as an arg
-    # should call Code::new with an array of chars
-    # should return a Code instance with pegs colors given by the chars of the string
-
-    def self.from_string(pegs)
-        Code.new(pegs.split(''))
     end
 
     # #[]
@@ -76,7 +76,13 @@ class Code
     
     def num_exact_matches(guess)
         count = 0
-        guess.pegs.each_with_index {|char, i| count+= 1 if char == @pegs[i]}
+        guess.pegs.each_with_index do 
+            |char, i| 
+            if char == @pegs[i]
+                count+= 1 
+            end
+        end
+
         count
     end
 
@@ -89,10 +95,11 @@ class Code
         count = 0
         guess.pegs.each_with_index do
             |char, i|
-            if @pegs.include?(char)
-                count += 1 if char != @pegs[i]
+            if @pegs.include?(char) && char != @pegs[i]
+                count += 1
             end
         end
+
         count
     end
 
@@ -102,7 +109,6 @@ class Code
     # should return false if the arg has different length from self
     
     def ==(other_code)
-        return true if @pegs == other_code.pegs
-        false
+        @pegs == other_code.pegs
     end
 end
