@@ -70,5 +70,39 @@ class Code
         @pegs.length
     end
 
+    # #num_exact_matches
+    # should accept a Code instance representing a guess
+    # should return the number of pegs in the guess that are the correct color and position as @pegs
     
+    def num_exact_matches(guess)
+        count = 0
+        guess.pegs.each_with_index {|char, i| count+= 1 if char == @pegs[i]}
+        count
+    end
+
+    # #num_near_matches
+    # should accept a Code instance representing a guess
+    # should return the number of pegs in the guess that are the correct color but incorrect position compared to @pegs
+    # should not include exact matches
+    
+    def num_near_matches(guess)
+        count = 0
+        guess.pegs.each_with_index do
+            |char, i|
+            if @pegs.include?(char)
+                count += 1 if char != @pegs[i]
+            end
+        end
+        count
+    end
+
+    # #==
+    # should accept another Code instance as an arg
+    # should return a boolean indicating whether the arg exactly matches self
+    # should return false if the arg has different length from self
+    
+    def ==(other_code)
+        return true if @pegs == other_code.pegs
+        false
+    end
 end
