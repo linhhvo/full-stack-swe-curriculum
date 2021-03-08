@@ -54,7 +54,7 @@
 
 <h2>Section 11. Recursion</h2>
 <p>Topics covered: Recursion, Recursive Factorial, Recursive Fib.</p>
-<a href=#>Problem set 19 - Recursion</a>
+<a href="https://github.com/linhhvo/ruby-practices/tree/main/19%20-%20recursion_exercise">Problem set 19 - Recursion</a>
 
 <h2>Section 12. Foundations Recap</h2>
 <p>Topics covered: Recap, Spaceship Operator, Nil as Falsey.</p>
