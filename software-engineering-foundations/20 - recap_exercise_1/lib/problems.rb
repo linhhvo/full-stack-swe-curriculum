@@ -18,7 +18,8 @@ end
 # composite?(9)     # => true
 # composite?(13)    # => false
 def composite?(num)
-
+    (2...num).each {|factor| return true if num % factor == 0}
+    false
 end
 
 
@@ -32,7 +33,7 @@ end
 # find_bigrams("the theater is empty", ["cy", "em", "ty", "ea", "oo"])  # => ["em", "ty", "ea"]
 # find_bigrams("to the moon and back", ["ck", "oo", "ha", "at"])        # => ["ck", "oo"]
 def find_bigrams(str, bigrams)
-
+    bigrams.select {|bigram| str.include?(bigram)}
 end
 
 class Hash
@@ -50,7 +51,15 @@ class Hash
     # hash_2.my_select { |k, v| k + 1 == v }      # => {10=>11, 5=>6, 7=>8})
     # hash_2.my_select                            # => {4=>4}
     def my_select(&prc)
-
+        prc ||= Proc.new {|key, value| key == value}
+        result = {}
+        self.each do
+            |key, value|
+            if prc.call(key, value)
+                result[key] = value
+            end
+        end
+        result
     end
 end
 
@@ -64,7 +73,21 @@ class String
     # "cats".substrings     # => ["c", "ca", "cat", "cats", "a", "at", "ats", "t", "ts", "s"]
     # "cats".substrings(2)  # => ["ca", "at", "ts"]
     def substrings(length = nil)
+        substrings = []
+        (0...self.length).each do
+            |idx|
+            (idx...self.length).each do
+                |next_idx|
+                substring = self[idx..next_idx]
+                substrings << substring
+            end
+        end
 
+        if length
+            substrings.select {|substr| substr.length == length}
+        else
+            substrings
+        end
     end
 
 
@@ -78,6 +101,14 @@ class String
     # "bootcamp".caesar_cipher(2) #=> "dqqvecor"
     # "zebra".caesar_cipher(4)    #=> "difve"
     def caesar_cipher(num)
+        alphabet = ('a'..'z').to_a
+        cipher = ''
 
+        self.each_char do
+            |char|
+            idx = (alphabet.index(char)+ num) % alphabet.length
+            cipher << alphabet[idx]
+        end
+        cipher
     end
 end
